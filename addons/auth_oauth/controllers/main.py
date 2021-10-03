@@ -64,7 +64,7 @@ class OAuthLogin(Home):
                 client_id=provider['client_id'],
                 redirect_uri=return_url,
                 scope=provider['scope'],
-                state=str(state['p'])
+                state=str(state['d']) + ',' + str(state['p'])
             )
             provider['auth_link'] = "%s?%s" % (provider['auth_endpoint'], werkzeug.urls.url_encode(params))
         return providers
@@ -120,11 +120,11 @@ class OAuthController(http.Controller):
     @http.route('/auth_oauth/signin', type='http', auth='none')
     @fragment_to_query_string
     def signin(self, **kw):
-        state = json.loads(kw['state'])
-        dbname = state['d']
+        state = str(kw['state']).split(',')
+        dbname = state[0]
         if not http.db_filter([dbname]):
             return BadRequest()
-        provider = state['p']
+        provider = state[1]
         context = state.get('c', {})
         registry = registry_get(dbname)
         with registry.cursor() as cr:
