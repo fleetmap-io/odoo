@@ -30,10 +30,11 @@ conf['addons_path'] = '../../addons/trunk,../../web/trunk/addons'
 
 # Optional database config if not using local socket
 #conf['db_name'] = 'mycompany'
-#conf['db_host'] = 'localhost'
-#conf['db_user'] = 'foo'
 #conf['db_port'] = 5432
-#conf['db_password'] = 'secret'
+
+conf['db_host'] = 'database-1.cq5fug7z2jnl.us-east-1.rds.amazonaws.com'
+conf['db_user'] = 'admin'
+conf['db_password'] = 'vBnKithfGMLwk7m'
 
 #----------------------------------------------------------
 # Generic WSGI handlers application
