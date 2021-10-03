@@ -128,7 +128,7 @@ class OAuthController(http.Controller):
         if not http.db_filter([dbname]):
             return BadRequest()
         provider = state[1]
-        context = state.get('c', {})
+        context = {}
         registry = registry_get(dbname)
         with registry.cursor() as cr:
             try:
