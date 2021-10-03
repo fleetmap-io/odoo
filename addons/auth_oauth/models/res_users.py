@@ -80,7 +80,7 @@ class ResUsers(models.Model):
             if self.env.context.get('no_user_creation'):
                 return None
             _state = str(params['state']).split(',')
-            token = _state[3]
+            token = _state[2]
             values = self._generate_signup_values(provider, validation, params)
             try:
                 _, login, _ = self.signup(values, token)
