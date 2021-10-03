@@ -12,6 +12,8 @@ from odoo.addons.auth_signup.models.res_users import SignupError
 from odoo.addons import base
 base.models.res_users.USER_PRIVATE_FIELDS.append('oauth_access_token')
 
+_logger = logging.getLogger(__name__)
+
 class ResUsers(models.Model):
     _inherit = 'res.users'
 
@@ -93,7 +95,10 @@ class ResUsers(models.Model):
         # else:
         #   continue with the process
         access_token = params.get('access_token')
+        _logger.info('atoken: %s', access_token)
         validation = self._auth_oauth_validate(provider, access_token)
+        _logger.info('validation: %s', validation)
+
         # required check
         if not validation.get('user_id'):
             # Workaround: facebook does not send 'user_id' in Open Graph Api
