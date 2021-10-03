@@ -132,6 +132,7 @@ class OAuthController(http.Controller):
             try:
                 env = api.Environment(cr, SUPERUSER_ID, context)
                 credentials = env['res.users'].sudo().auth_oauth(provider, kw)
+                _logger.info('credentials: %s', credentials)
                 cr.commit()
                 action = state.get('a')
                 menu = state.get('m')
