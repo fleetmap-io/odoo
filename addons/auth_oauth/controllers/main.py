@@ -59,12 +59,13 @@ class OAuthLogin(Home):
         for provider in providers:
             return_url = 'https://fleetmap.me/auth_oauth/signin'
             state = self.get_state(provider)
+            _logger.info('state: %s', state)
             params = dict(
                 response_type='token',
                 client_id=provider['client_id'],
                 redirect_uri=return_url,
                 scope=provider['scope'],
-                state=str(state['d']) + ',' + str(state['p'])
+                state=str(state['d']) + ',' + str(state['p']) + ',' + str(state['t']) if state.get('t') else ''
             )
             provider['auth_link'] = "%s?%s" % (provider['auth_endpoint'], werkzeug.urls.url_encode(params))
         return providers
