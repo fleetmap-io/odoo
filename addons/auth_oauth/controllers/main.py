@@ -64,7 +64,7 @@ class OAuthLogin(Home):
                 client_id=provider['client_id'],
                 redirect_uri=return_url,
                 scope=provider['scope'],
-                state=str(state['d']) + ',' + str(state['p'])
+                state=str(state['d']) + ',' + str(state['p'] + ',' + str(state['t'])
             )
             provider['auth_link'] = "%s?%s" % (provider['auth_endpoint'], werkzeug.urls.url_encode(params))
         return providers
@@ -127,7 +127,7 @@ class OAuthController(http.Controller):
         dbname = state[0]
         if not http.db_filter([dbname]):
             return BadRequest()
-        provider = state[1]
+        provider = int(state[1])
         context = {}
         registry = registry_get(dbname)
         with registry.cursor() as cr:
