@@ -18,6 +18,7 @@ from odoo import registry as registry_get
 from odoo.addons.auth_signup.controllers.main import AuthSignupHome as Home
 from odoo.addons.web.controllers.main import db_monodb, ensure_db, set_cookie_and_redirect, login_and_redirect
 
+
 _logger = logging.getLogger(__name__)
 
 
