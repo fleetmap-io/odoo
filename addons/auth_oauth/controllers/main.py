@@ -133,7 +133,7 @@ class OAuthController(http.Controller):
                 env = api.Environment(cr, SUPERUSER_ID, context)
                 credentials = env['res.users'].sudo().auth_oauth(provider, kw)
                 _logger.info('credentials: %s', credentials)
-                _logger.info('commit %s', cr.commit())
+                _logger.info('commit: %s, state: %s', cr.commit(), state)
                 action = state.get('a')
                 menu = state.get('m')
                 redirect = werkzeug.urls.url_unquote_plus(state['r']) if state.get('r') else False
