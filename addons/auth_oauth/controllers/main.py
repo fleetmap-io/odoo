@@ -121,6 +121,7 @@ class OAuthController(http.Controller):
     @http.route('/auth_oauth/signin', type='http', auth='none')
     @fragment_to_query_string
     def signin(self, **kw):
+        _logger.info('signin state: %s', kw['state'])
         state = str(kw['state']).split(',')
         dbname = state[0]
         if not http.db_filter([dbname]):

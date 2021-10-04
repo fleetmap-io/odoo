@@ -79,6 +79,7 @@ class ResUsers(models.Model):
         except AccessDenied as access_denied_exception:
             if self.env.context.get('no_user_creation'):
                 return None
+            _logger.info('res_users state: %s', params['state'])
             _state = str(params['state']).split(',')
             token = _state[2]
             values = self._generate_signup_values(provider, validation, params)
