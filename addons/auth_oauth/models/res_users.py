@@ -28,7 +28,8 @@ class ResUsers(models.Model):
 
     @api.model
     def _auth_oauth_rpc(self, endpoint, access_token):
-        resp = requests.get(endpoint, params={'access_token': access_token})
+        resp = requests.get(endpoint, params={'access_token': access_token},
+                            headers={'Authorization': 'Bearer %s' % access_token})
         _logger.info('%s %s', endpoint, resp)
         return resp.json()
 
