@@ -65,7 +65,7 @@ class OAuthLogin(Home):
                 client_id=provider['client_id'],
                 redirect_uri=return_url,
                 scope=provider['scope'],
-                state=json.dumps(state).encode('base64'),
+                state=base64.b64encode(json.dumps(state).encode()).decode()
             )
             provider['auth_link'] = "%s?%s" % (provider['auth_endpoint'], werkzeug.urls.url_encode(params))
         return providers
@@ -123,7 +123,7 @@ class OAuthController(http.Controller):
     @fragment_to_query_string
     def signin(self, **kw):
         _logger.info('signin state: %s', kw['state'])
-        state = json.loads(kw['state'].decode('base64'))
+        state = json.loads(base64.b64decode(kw['state']).decode())
         _logger.info('signin state: %s', state)
         dbname = state['d']
         if not http.db_filter([dbname]):
