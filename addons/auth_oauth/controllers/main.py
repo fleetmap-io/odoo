@@ -136,6 +136,7 @@ class OAuthController(http.Controller):
                 _logger.info('credentials: %s', credentials)
                 _logger.info('commit: %s, state: %s', cr.commit(), state)
                 action = state.get('a')
+                _logger.info('action: %s', action)
                 menu = state.get('m')
                 redirect = werkzeug.urls.url_unquote_plus(state['r']) if state.get('r') else False
                 _logger.info('redirect %s', redirect)
