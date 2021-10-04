@@ -2,7 +2,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import base64
 import json
-import logging
 
 import requests
 
@@ -12,8 +11,6 @@ from odoo.addons.auth_signup.models.res_users import SignupError
 
 from odoo.addons import base
 base.models.res_users.USER_PRIVATE_FIELDS.append('oauth_access_token')
-
-_logger = logging.getLogger(__name__)
 
 class ResUsers(models.Model):
     _inherit = 'res.users'
@@ -28,10 +25,7 @@ class ResUsers(models.Model):
 
     @api.model
     def _auth_oauth_rpc(self, endpoint, access_token):
-        resp = requests.get(endpoint, params={'access_token': access_token},
-                            headers={'Authorization': 'Bearer %s' % access_token})
-        _logger.info('%s %s', endpoint, resp)
-        return resp.json()
+        return requests.get(endpoint, params={'access_token': access_token}, headers={'Authorization': 'Bearer %s' % access_token}).json()
 
     @api.model
     def _auth_oauth_validate(self, provider, access_token):

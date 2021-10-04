@@ -225,6 +225,7 @@ class Cursor(BaseCursor):
 
     def __init__(self, pool, dbname, dsn, serialized=True):
         super().__init__()
+
         self.sql_from_log = {}
         self.sql_into_log = {}
 
