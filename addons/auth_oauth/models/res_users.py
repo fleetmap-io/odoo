@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-
+import base64
 import json
 import logging
 
@@ -82,9 +82,8 @@ class ResUsers(models.Model):
         except AccessDenied as access_denied_exception:
             if self.env.context.get('no_user_creation'):
                 return None
-            _logger.info('res_users state: %s', params['state'])
-            _state = str(params['state']).split(',')
-            token = _state[2]
+            state = json.loads(base64.b64decode(params['state']).decode())
+            token = state.get('t')
             values = self._generate_signup_values(provider, validation, params)
             try:
                 _, login, _ = self.signup(values, token)
