@@ -65,7 +65,7 @@ class OAuthLogin(Home):
                 client_id=provider['client_id'],
                 redirect_uri=return_url,
                 scope=provider['scope'],
-                state=str.encode('base64', json.dumps(state)),
+                state=json.dumps(state).encode('base64'),
             )
             provider['auth_link'] = "%s?%s" % (provider['auth_endpoint'], werkzeug.urls.url_encode(params))
         return providers
