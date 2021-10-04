@@ -126,7 +126,8 @@ class OAuthController(http.Controller):
         state = json.loads(kw['state'])
         _logger.info('signin state: %s', kw['state'])
         # state = str(kw['state']).split(',')
-        dbname = state[0]
+        #dbname = state[0]
+        dbname = state['d']
         if not http.db_filter([dbname]):
             return BadRequest()
         provider = state['p']
