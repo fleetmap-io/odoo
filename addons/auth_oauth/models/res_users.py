@@ -93,10 +93,7 @@ class ResUsers(models.Model):
         # else:
         #   continue with the process
         access_token = params.get('access_token')
-        _logger.info('atoken: %s', access_token)
         validation = self._auth_oauth_validate(provider, access_token)
-        _logger.info('validation: %s', validation)
-
         # required check
         if not validation.get('user_id'):
             # Workaround: facebook does not send 'user_id' in Open Graph Api
