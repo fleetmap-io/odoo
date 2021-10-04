@@ -123,7 +123,7 @@ class OAuthController(http.Controller):
     @fragment_to_query_string
     def signin(self, **kw):
         _logger.info('signin state: %s', kw['state'])
-        state = json.loads(str.decode('base64', kw['state']))
+        state = json.loads(kw['state'].decode('base64'))
         _logger.info('signin state: %s', state)
         dbname = state['d']
         if not http.db_filter([dbname]):
