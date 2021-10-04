@@ -18,12 +18,13 @@ from odoo import registry as registry_get
 from odoo.addons.auth_signup.controllers.main import AuthSignupHome as Home
 from odoo.addons.web.controllers.main import db_monodb, ensure_db, set_cookie_and_redirect, login_and_redirect
 
+
 _logger = logging.getLogger(__name__)
 
 
-# ----------------------------------------------------------
+#----------------------------------------------------------
 # helpers
-# ----------------------------------------------------------
+#----------------------------------------------------------
 def fragment_to_query_string(func):
     @functools.wraps(func)
     def wrapper(self, *a, **kw):
@@ -43,13 +44,12 @@ def fragment_to_query_string(func):
                 window.location = r;
             </script></head><body></body></html>"""
         return func(self, *a, **kw)
-
     return wrapper
 
 
-# ----------------------------------------------------------
+#----------------------------------------------------------
 # Controller
-# ----------------------------------------------------------
+#----------------------------------------------------------
 class OAuthLogin(Home):
     def list_providers(self):
         try:
@@ -65,8 +65,7 @@ class OAuthLogin(Home):
                 client_id=provider['client_id'],
                 redirect_uri=return_url,
                 scope=provider['scope'],
-                state=json.dumps(state),
-                #state=str(state['d']) + ',' + str(state['p']) + ',' + str(state['t']) if state.get('t') else ''
+                state=str(state['d']) + ',' + str(state['p']) + ',' + str(state['t']) if state.get('t') else ''
             )
             provider['auth_link'] = "%s?%s" % (provider['auth_endpoint'], werkzeug.urls.url_encode(params))
         return providers
@@ -101,8 +100,7 @@ class OAuthLogin(Home):
             elif error == '2':
                 error = _("Access Denied")
             elif error == '3':
-                error = _(
-                    "You do not have access to this database or your invitation has expired. Please ask for an invitation and be sure to follow the link in your invitation email.")
+                error = _("You do not have access to this database or your invitation has expired. Please ask for an invitation and be sure to follow the link in your invitation email.")
             else:
                 error = None
 
@@ -123,17 +121,13 @@ class OAuthController(http.Controller):
     @http.route('/auth_oauth/signin', type='http', auth='none')
     @fragment_to_query_string
     def signin(self, **kw):
-        state = json.loads(kw['state'])
         _logger.info('signin state: %s', kw['state'])
-        # state = str(kw['state']).split(',')
-        #dbname = state[0]
-        dbname = state['d']
+        state = str(kw['state']).split(',')
+        dbname = state[0]
         if not http.db_filter([dbname]):
             return BadRequest()
-        provider = state['p']
-        context = state.get('c', {})
-        # provider = int(state[1])
-        # context = {}
+        provider = int(state[1])
+        context = {}
         registry = registry_get(dbname)
         with registry.cursor() as cr:
             try:
@@ -141,9 +135,9 @@ class OAuthController(http.Controller):
                 credentials = env['res.users'].sudo().auth_oauth(provider, kw)
                 _logger.info('credentials: %s', credentials)
                 _logger.info('commit: %s, state: %s', cr.commit(), state)
-                action = state.get('a')
+                action = None
                 _logger.info('action: %s', action)
-                menu = state.get('m')
+                menu = None
                 redirect = werkzeug.urls.url_unquote_plus(state['r']) if state.get('r') else False
                 _logger.info('redirect %s', redirect)
                 url = '/web'
@@ -156,8 +150,7 @@ class OAuthController(http.Controller):
                 resp = login_and_redirect(*credentials, redirect_url=url)
                 _logger.info('resp: %s', resp)
                 # Since /web is hardcoded, verify user has right to land on it
-                if werkzeug.urls.url_parse(resp.location).path == '/web' and not request.env.user.has_group(
-                        'base.group_user'):
+                if werkzeug.urls.url_parse(resp.location).path == '/web' and not request.env.user.has_group('base.group_user'):
                     resp.location = '/'
                 return resp
             except AttributeError:
@@ -166,8 +159,7 @@ class OAuthController(http.Controller):
                 url = "/web/login?oauth_error=1"
             except AccessDenied:
                 # oauth credentials not valid, user could be on a temporary session
-                _logger.info(
-                    'OAuth2: access denied, redirect to main page in case a valid session exists, without setting cookies')
+                _logger.info('OAuth2: access denied, redirect to main page in case a valid session exists, without setting cookies')
                 url = "/web/login?oauth_error=3"
                 redirect = werkzeug.utils.redirect(url, 303)
                 redirect.autocorrect_location_header = False
