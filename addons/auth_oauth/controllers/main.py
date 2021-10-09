@@ -4,7 +4,7 @@ import base64
 import functools
 import json
 import logging
-import urllib.parse
+from urllib.parse import urljoin
 import werkzeug.urls
 import werkzeug.utils
 from werkzeug.exceptions import BadRequest
@@ -57,7 +57,7 @@ class OAuthLogin(Home):
             providers = []
         for provider in providers:
             base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url', request.httprequest.url_root)
-            return_url = urllib.parse.urljoin(base_url, 'auth_oauth/signin')
+            return_url = urljoin(base_url, 'auth_oauth/signin')
             state = self.get_state(provider)
             params = dict(
                 response_type='token',
