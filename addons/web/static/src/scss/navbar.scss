@@ -56,7 +56,7 @@ body.o_is_superuser .o_menu_systray {
         float: left;
         margin-right: 35px;
         user-select: none;
-        color: white;
+        color: black;
         font-size: 22px;
         font-weight: 500;
         line-height: $o-navbar-height;
@@ -93,7 +93,7 @@ body.o_is_superuser .o_menu_systray {
             > a, > label {
                 height: $o-navbar-height;
                 padding: 0 10px;
-                color: white;
+                color: black;
                 line-height: $o-navbar-height;
 
                 &:hover {
@@ -112,7 +112,7 @@ body.o_is_superuser .o_menu_systray {
                     > li {
                         > a {
                             background-color: $o-brand-odoo;
-                            color: white;
+                            color: black;
                             border-bottom: 1px solid $o-brand-lightsecondary;
 
                             &.dropdown-toggle {
