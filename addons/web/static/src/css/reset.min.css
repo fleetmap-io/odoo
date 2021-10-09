@@ -27,6 +27,7 @@ output, progress, section, summary, time, video {
 	font-size: 100%;
 	vertical-align: baseline;
 	background: transparent;
+	color: #219FD7;
 }
 
 body {
