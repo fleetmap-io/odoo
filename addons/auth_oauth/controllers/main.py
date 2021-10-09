@@ -2,10 +2,9 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import base64
 import functools
-import logging
-
 import json
-
+import logging
+import urllib.parse
 import werkzeug.urls
 import werkzeug.utils
 from werkzeug.exceptions import BadRequest
@@ -57,8 +56,8 @@ class OAuthLogin(Home):
         except Exception:
             providers = []
         for provider in providers:
-            base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url', request.httprequest.url_root + '/')
-            return_url = base_url + '/auth_oauth/signin'
+            base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url', request.httprequest.url_root)
+            return_url = urllib.parse.urljoin(base_url, 'auth_oauth/signin')
             state = self.get_state(provider)
             params = dict(
                 response_type='token',
