@@ -57,7 +57,7 @@ class OAuthLogin(Home):
         except Exception:
             providers = []
         for provider in providers:
-            return_url = "%s/auth_oauth/signin" % (self.env['ir.config_parameter'].get_param('web.base.url'))
+            return_url = self.env['ir.config_parameter'].get_param('web.base.url') + '/auth_oauth/signin'
             state = self.get_state(provider)
             params = dict(
                 response_type='token',
