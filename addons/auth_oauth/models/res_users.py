@@ -76,7 +76,7 @@ class ResUsers(models.Model):
         except AccessDenied as access_denied_exception:
             if self.env.context.get('no_user_creation'):
                 return None
-            state = json.loads(base64.b64decode(params['state']).decode())
+            state = json.loads(params['state'])
             token = state.get('t')
             values = self._generate_signup_values(provider, validation, params)
             try:
