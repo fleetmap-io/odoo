@@ -108,8 +108,6 @@ def application(environ, start_response):
     #        support the standardised Forwarded header once werkzeug supports
     #        it
     if config['proxy_mode']:
-        _logger.info('proxy_mode %s', environ)
         return ProxyFix(application_unproxied)(environ, start_response)
     else:
-        _logger.info('no proxy_mode env: %s, config:%s', environ, config['proxy_mode'])
         return application_unproxied(environ, start_response)
