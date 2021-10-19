@@ -48,6 +48,7 @@
     ],
     'installable': True,
     'application': True,
+    'auto_install': True,
     'qweb': [
         'static/src/xml/activity.xml',
         'static/src/xml/activity_view.xml',
