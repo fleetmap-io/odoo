@@ -4,16 +4,14 @@
     'name' : 'Fleetmap',
     'version' : '1.0',
     'summary' : 'Fleetmap Management'
-    'sequence': 185,
-    'category': 'Human Resources/Fleet',
+    'sequence': 10,
+    'category': 'Human Resources',
     'website' : '',
-    'depends': [
-        'fleet'
-    ],
+    'depends': [],
     'data': [],
     'demo': [],
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
-    'auto_install': True
+    'auto_install': False
 }
