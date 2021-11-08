@@ -6,7 +6,7 @@
     'sequence': 185,
     'category': 'Human Resources/Fleet',
     'website' : 'https://www.odoo.com/page/fleet',
-    'summary' : 'Manage your fleet and track car costs',
+    'summary' : 'Manage your fleet and track car costs. Fleetmap',
     'description' : """
 Vehicle, leasing, insurances, cost
 ==================================
