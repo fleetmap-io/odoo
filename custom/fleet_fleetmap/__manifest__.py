@@ -5,7 +5,7 @@
     'summary' : 'Fleetmap Management',
     'category': 'Human Resources/Fleet',
     'website' : '',
-    'depends': ['base','fleet'],
+    'depends': ['fleet'],
     'data': [
             'views/fleet_vehicle_views.xml'
         ],
