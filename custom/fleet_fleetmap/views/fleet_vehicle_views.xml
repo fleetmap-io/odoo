@@ -291,9 +291,7 @@
         </field>
     </record>
 
-    <menuitem name="Vehicles" parent="menu_root" id="fleet_vehicles" sequence="2" groups="fleet_group_user"/>
-    <menuitem action="fleet_vehicle_action" parent="fleet_vehicles" id="fleet_vehicle_menu" groups="fleet_group_user" sequence="1"/>
-
-
+    <menuitem name="Fleetmap" parent="fleet_vehicles" id="fleetmap_fleet_vehicles" sequence="2" groups="fleet_group_user"/>
+    <menuitem action="fleet_vehicle_action" parent="fleetmap_fleet_vehicles" id="fleet_vehicle_menu" groups="fleet_group_user" sequence="1"/>
 
 </odoo>
