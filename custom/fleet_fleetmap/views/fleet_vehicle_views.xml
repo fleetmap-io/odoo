@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record model="ir.ui.view" id="view_id">
-        <field name="name">view.name</field>
-        <field name="model">fleet.vehicle</field>
-        <field name="priority" eval="16"/>
-        <field name="arch" type="xml">
-            <form string="Vehicle">
-
-            </form>
-        </field>
-    </record>
-
-    <record model="ir.actions.act_window" id="action_list_ideas">
-        <field name="name">Ideas</field>
+    <record id='fleet_vehicle_action' model='ir.actions.act_window'>
+        <field name="name">Vehicles</field>
         <field name="res_model">fleet.vehicle</field>
-        <field name="view_mode">form</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
     </record>
 
-    <menuitem id="menu_ideas" name="Ideas" sequence="10" action="action_list_ideas"/>
+    <menuitem name="Frota" id="fleet_vehicles" sequence="2" groups="fleet_group_user"/>
+    <menuitem action="fleet_vehicle_action" parent="fleet_vehicles" id="fleet_vehicle_menu" groups="fleet_group_user" sequence="1"/>
+
 </odoo>
