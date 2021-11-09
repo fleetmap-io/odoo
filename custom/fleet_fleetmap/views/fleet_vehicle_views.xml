@@ -6,7 +6,7 @@
         <field name="view_mode">kanban,tree,form,activity</field>
     </record>
 
-    <menuitem name="Frota" id="fleet_vehicles" sequence="2" groups="fleet_group_user"/>
-    <menuitem action="fleet_vehicle_action" parent="fleet_vehicles" id="fleet_vehicle_menu" groups="fleet_group_user" sequence="1"/>
+    <menuitem name="Frota" id="fleet_vehicles" sequence="2" />
+    <menuitem action="fleet_vehicle_action" parent="fleet_vehicles" id="fleet_vehicle_menu" sequence="1"/>
 
 </odoo>
