@@ -6,6 +6,10 @@
     'category': 'Human Resources/Fleet',
     'website' : '',
     'depends': ['fleet'],
+    'data': [
+            'views/fleet_vehicle_views.xml',
+            'views/fleet_board_view.xml'
+        ],
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
