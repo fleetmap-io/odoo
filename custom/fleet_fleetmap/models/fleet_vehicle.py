@@ -1,4 +1,17 @@
+import logging
+import pytraccar.api as traccar
+from pytraccar.exceptions import (
+    ForbiddenAccessException,
+    InvalidTokenException,
+    BadRequestException,
+    ObjectNotFoundException,
+    UserPermissionException
+)
 from odoo import api, fields, models
+
+username, password = 'admin', 'admin'
+traccar_url = 'https://traccar.fleetmap.me/'
+_logger = logging.getLogger('fleetmap')
 
 class FleetVehicle(models.Model):
     _inherit = 'fleet.vehicle'
@@ -18,6 +31,9 @@ class FleetVehicleOdometer(models.Model):
         vals['fleetmap_test'] = 'teste'
         result = super(FleetVehicleOdometer, self).create(vals)
 
+        user = traccar.TraccarAPI(base_url=traccar_url)
+        loginResult = user.login_with_credentials(username, password)
+
+        _logger.debug('LoginResult %s', loginResult)
 
         return result
-
