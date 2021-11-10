@@ -6,11 +6,7 @@
     'category': 'Human Resources/Fleet',
     'website' : '',
     'depends': ['fleet'],
-    'data': [
-            'views/fleet_vehicle_views.xml'
-        ],
-    'installable': True,
-    'application': True,
-    'license': 'LGPL-3',
-    'auto_install': False
+    'data': ['views/fleet_vehicle_views.xml'],
+    'auto_install': True,
+    'license': 'LGPL-3'
 }

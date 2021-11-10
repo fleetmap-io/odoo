@@ -5,5 +5,3 @@ class FleetVehicle(models.Model):
 
     fleetmap_name = fields.Char('Name')
     fleetmap_id = fields.Integer('Fleetmap ID')
-
-
