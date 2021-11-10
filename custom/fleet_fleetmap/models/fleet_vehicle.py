@@ -18,5 +18,6 @@ class FleetVehicleOdometer(models.Model):
         vals['fleetmap_test'] = 'teste'
         result = super(FleetVehicleOdometer, self).create(vals)
 
+
         return result
 
