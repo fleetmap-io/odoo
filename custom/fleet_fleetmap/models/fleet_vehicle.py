@@ -1,5 +1,6 @@
 import logging
 import pytraccar
+from pytraccar import api as traccar
 from odoo import api, fields, models
 
 username, password = 'admin', 'admin'
@@ -24,9 +25,9 @@ class FleetVehicleOdometer(models.Model):
         vals['fleetmap_test'] = 'teste'
         result = super(FleetVehicleOdometer, self).create(vals)
 
-        """ user = traccar.TraccarAPI(base_url=traccar_url)
-        loginResult = user.login_with_credentials(username, password) """
+        user = traccar.TraccarAPI(base_url=traccar_url)
+        loginResult = user.login_with_credentials(username, password)
 
-        _logger.debug('LoginResult %s', result)
+        _logger.debug('LoginResult %s', loginResult)
 
         return result
