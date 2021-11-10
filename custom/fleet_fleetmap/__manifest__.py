@@ -8,7 +8,7 @@
     'depends': ['fleet'],
     'data': ['views/fleet_vehicle_views.xml'],
     'external_dependencies': {
-        'python' : ['pytraccar']
+        'python' : ['pytraccar','asyncio','aiohttp']
     },
     'auto_install': True,
     'license': 'LGPL-3'

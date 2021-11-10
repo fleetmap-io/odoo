@@ -1,10 +1,15 @@
 import logging
 import pytraccar
-from pytraccar import api as traccar
+import asyncio
+import aiohttp
+from pytraccar.api import API
 from odoo import api, fields, models
 
-username, password = 'admin', 'admin'
-traccar_url = 'https://traccar.fleetmap.me/'
+HOST = "traccar.fleetmap.me"
+PORT = 80
+USERNAME = "admin"
+PASSWORD = "admin"
+
 _logger = logging.getLogger('fleetmap')
 
 class FleetVehicle(models.Model):
@@ -25,9 +30,10 @@ class FleetVehicleOdometer(models.Model):
         vals['fleetmap_test'] = 'teste'
         result = super(FleetVehicleOdometer, self).create(vals)
 
-        user = traccar.TraccarAPI(base_url=traccar_url)
-        loginResult = user.login_with_credentials(username, password)
+        async with aiohttp.ClientSession() as session:
+                data = API(LOOP, session, USERNAME, PASSWORD, HOST, PORT)
+                await data.get_device_info()
 
-        _logger.debug('LoginResult %s', loginResult)
+                _logger.debug('LoginResult %s', data.device_info)
 
         return result
