@@ -1,4 +1,4 @@
-class FleetmapVehicle(models.Model):
+class FleetVehicle(models.Model):
     _name = 'fleet.vehicle'
     _inherit = ['fleet.vehicle']
 
