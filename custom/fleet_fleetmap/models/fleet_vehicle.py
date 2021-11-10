@@ -1,5 +1,4 @@
 import logging
-import pytraccar.api as traccar
 from pytraccar.exceptions import (
     ForbiddenAccessException,
     InvalidTokenException,
@@ -7,6 +6,7 @@ from pytraccar.exceptions import (
     ObjectNotFoundException,
     UserPermissionException
 )
+from pytraccar import api as traccar
 from odoo import api, fields, models
 
 username, password = 'admin', 'admin'
