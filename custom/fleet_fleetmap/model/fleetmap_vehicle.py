@@ -1,5 +1,6 @@
+from odoo import fields, models, _
+
 class FleetVehicle(models.Model):
-    _name = 'fleet.vehicle'
     _inherit = ['fleet.vehicle']
 
     fleetmap_name = fields.Char('Name')
