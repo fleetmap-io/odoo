@@ -44,3 +44,4 @@ pypiwin32 ; sys_platform == 'win32'
 shapely==1.8.0
 geojson==2.5.0
 simplejson==3.17.6
+boto3
