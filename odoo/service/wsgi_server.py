@@ -136,7 +136,7 @@ def application(environ, start_response):
     #        we're ignoring the user configuration, and that means we won't
     #        support the standardised Forwarded header once werkzeug supports
     #        it
-    if config['proxy_mode'] in environ:
+    if config['proxy_mode']:
         return ProxyFix(application_unproxied)(environ, start_response)
     else:
         return application_unproxied(environ, start_response)
