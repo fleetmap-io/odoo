@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-
+import base64
 import functools
 import logging
 
@@ -64,7 +64,7 @@ class OAuthLogin(Home):
                 client_id=provider['client_id'],
                 redirect_uri=return_url,
                 scope=provider['scope'],
-                state=json.dumps(state),
+                state=base64.b64encode(json.dumps(state).encode()).decode()
             )
             provider['auth_link'] = "%s?%s" % (provider['auth_endpoint'], werkzeug.url_encode(params))
         return providers
@@ -120,7 +120,7 @@ class OAuthController(http.Controller):
     @http.route('/auth_oauth/signin', type='http', auth='none')
     @fragment_to_query_string
     def signin(self, **kw):
-        state = json.loads(kw['state'])
+        state = json.loads(base64.b64decode(kw['state']).decode())
         dbname = state['d']
         if not http.db_filter([dbname]):
             return BadRequest()
