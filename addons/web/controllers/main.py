@@ -129,7 +129,7 @@ def redirect_with_hash(*args, **kw):
 
 def abort_and_redirect(url):
     r = request.httprequest
-    response = werkzeug.utils.redirect(url, 302)
+    response = werkzeug.utils.redirect(url + '&a=1', 302)
     response = r.app.get_response(r, response, explicit_session=False)
     werkzeug.exceptions.abort(response)
 
