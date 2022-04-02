@@ -7,6 +7,7 @@ import os
 import logging
 import pytz
 import requests
+import time
 import werkzeug.urls
 import werkzeug.utils
 import werkzeug.wrappers
@@ -129,7 +130,7 @@ class Website(Home):
         """
         if not redirect and request.params.get('login_success'):
             if request.env['res.users'].browse(uid).has_group('base.group_user'):
-                redirect = b'/web?' + request.httprequest.query_string
+                redirect = b'/web?' + request.httprequest.query_string + '&nocache=' + time.time()
             else:
                 redirect = '/my'
         return super()._login_redirect(uid, redirect=redirect)
