@@ -320,7 +320,7 @@ def login_and_redirect(db, login, key, redirect_url='/web'):
     return set_cookie_and_redirect(redirect_url)
 
 def set_cookie_and_redirect(redirect_url):
-    redirect = werkzeug.utils.redirect(redirect_url, 303)
+    redirect = werkzeug.utils.redirect(redirect_url + '&a=1', 303)
     redirect.autocorrect_location_header = False
     return redirect
 
