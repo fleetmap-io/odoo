@@ -4,6 +4,7 @@ import base64
 import functools
 import json
 import logging
+import time
 from urllib.parse import urljoin
 import werkzeug.urls
 import werkzeug.utils
@@ -181,7 +182,7 @@ class OAuthController(http.Controller):
                 env = api.Environment(cr, SUPERUSER_ID, {})
                 provider = env.ref('auth_oauth.provider_openerp')
             except ValueError:
-                return set_cookie_and_redirect('/web?db=%s' % dbname)
+                return set_cookie_and_redirect('/web?db=%s&nocache=%d' % (dbname, time.time()))
             assert provider._name == 'auth.oauth.provider'
 
         state = {
