@@ -5,6 +5,8 @@ import functools
 import json
 import logging
 from urllib.parse import urljoin
+import os
+
 import werkzeug.urls
 import werkzeug.utils
 from werkzeug.exceptions import BadRequest
@@ -63,7 +65,8 @@ class OAuthLogin(Home):
                 client_id=provider['client_id'],
                 redirect_uri=return_url,
                 scope=provider['scope'],
-                state=base64.b64encode(json.dumps(state).encode()).decode()
+                state=json.dumps(state),
+                # nonce=base64.urlsafe_b64encode(os.urandom(16)),
             )
             provider['auth_link'] = "%s?%s" % (provider['auth_endpoint'], werkzeug.urls.url_encode(params))
         return providers

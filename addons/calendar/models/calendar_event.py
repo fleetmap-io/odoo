@@ -3,6 +3,8 @@
 
 from datetime import timedelta
 import math
+from itertools import repeat
+
 import babel.dates
 import logging
 import pytz
@@ -116,7 +118,7 @@ class Meeting(models.Model):
         return self._get_recurrent_fields() | self._get_time_fields() | self._get_custom_fields() | {
             'id', 'active', 'allday',
             'duration', 'user_id', 'interval',
-            'count', 'rrule', 'recurrence_id', 'show_as'}
+            'count', 'rrule', 'recurrence_id', 'show_as', 'privacy'}
 
     @api.model
     def _get_display_time(self, start, stop, zduration, zallday):
@@ -707,8 +709,12 @@ class Meeting(models.Model):
                                 activity_vals['user_id'] = user_id
                             values['activity_ids'] = [(0, 0, activity_vals)]
 
+        # Add commands to create attendees from partners (if present) if no attendee command
+        # is already given (coming from Google event for example).
         vals_list = [
-            dict(vals, attendee_ids=self._attendees_values(vals['partner_ids'])) if 'partner_ids' in vals else vals
+            dict(vals, attendee_ids=self._attendees_values(vals['partner_ids']))
+            if 'partner_ids' in vals and not vals.get('attendee_ids')
+            else vals
             for vals in vals_list
         ]
         recurrence_fields = self._get_recurrent_fields()
@@ -738,52 +744,49 @@ class Meeting(models.Model):
                     self.env['calendar.alarm_manager']._notify_next_alarm(event.partner_ids.ids)
         return events
 
-    def read(self, fields=None, load='_classic_read'):
-        def hide(field, value):
-            """
-            :param field: field name
-            :param value: field value
-            :return: obfuscated field value
-            """
-            if field in {'name', 'display_name'}:
-                return _('Busy')
-            return [] if isinstance(value, list) else False
+    def _read(self, fields):
+        if self.env.is_system():
+            super()._read(fields)
+            return
 
-        def split_privacy(events):
-            """
-            :param events: list of event values (dict)
-            :return: tuple(private events, public events)
-            """
-            private = [event for event in events if event.get('privacy') == 'private']
-            public = [event for event in events if event.get('privacy') != 'private']
-            return private, public
+        fields = set(fields)
+        private_fields = fields - self._get_public_fields()
+        if not private_fields:
+            super()._read(fields)
+            return
 
-        def my_events(events):
-            """
-            :param events: list of event values (dict)
-            :return: tuple(my events, other events)
-            """
-            my = [event for event in events if event.get('user_id') and event.get('user_id')[0] == self.env.uid]
-            others = [event for event in events if not event.get('user_id') or event.get('user_id')[0] != self.env.uid]
-            return my, others
+        super()._read(fields | {'privacy', 'user_id', 'partner_ids'})
+        current_partner_id = self.env.user.partner_id
+        others_private_events = self.filtered(
+            lambda e: e.privacy == 'private' \
+                  and e.user_id != self.env.user \
+                  and current_partner_id not in e.partner_ids
+        )
+        if not others_private_events:
+            return
 
-        def obfuscated(events):
-            """
-            :param events: list of event values (dict)
-            :return: events with private field values obfuscated
-            """
-            public_fields = self._get_public_fields()
-            return [{
-                field: hide(field, value) if field not in public_fields else value
-                for field, value in event.items()
-            } for event in events]
+        for field_name in private_fields:
+            field = self._fields[field_name]
+            replacement = field.convert_to_cache(
+                _('Busy') if field_name == 'name' else False,
+                others_private_events)
+            self.env.cache.update(others_private_events, field, repeat(replacement))
 
-        events = super().read(fields=fields + ['privacy', 'user_id'], load=load)
-        private_events, public_events = split_privacy(events)
-        my_private_events, others_private_events = my_events(private_events)
+    def name_get(self):
+        """ Hide private events' name for events which don't belong to the current user
+        """
+        hidden = self.filtered(
+            lambda evt:
+                evt.privacy == 'private' and
+                evt.user_id.id != self.env.uid and
+                self.env.user.partner_id not in evt.partner_ids
+        )
 
-        return public_events + my_private_events + obfuscated(others_private_events)
-
+        shown = self - hidden
+        shown_names = super(Meeting, shown).name_get()
+        obfuscated_names = [(eid, _('Busy')) for eid in hidden.ids]
+        return shown_names + obfuscated_names
+    
     @api.model
     def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
         groupby = [groupby] if isinstance(groupby, str) else groupby
@@ -820,7 +823,7 @@ class Meeting(models.Model):
                 if 'name' in fields:
                     activity_values['summary'] = event.name
                 if 'description' in fields:
-                    activity_values['note'] = tools.plaintext2html(event.description)
+                    activity_values['note'] = event.description and tools.plaintext2html(event.description)
                 if 'start' in fields:
                     # self.start is a datetime UTC *only when the event is not allday*
                     # activty.date_deadline is a date (No TZ, but should represent the day in which the user's TZ is)

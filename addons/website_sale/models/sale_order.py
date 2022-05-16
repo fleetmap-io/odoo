@@ -125,6 +125,10 @@ class SaleOrder(models.Model):
                     # but we still want to use the price defined on the pricelist
                     discount = 0
                     pu = price
+            else:
+                # In case the price_unit equal 0 and therefore not able to calculate the discount,
+                # we fallback on the price defined on the pricelist.
+                pu = price
         else:
             pu = product.price
             if order.pricelist_id and order.partner_id:
@@ -361,7 +365,7 @@ class SaleOrderLine(models.Model):
 
     name_short = fields.Char(compute="_compute_name_short")
 
-    linked_line_id = fields.Many2one('sale.order.line', string='Linked Order Line', domain="[('order_id', '!=', order_id)]", ondelete='cascade')
+    linked_line_id = fields.Many2one('sale.order.line', string='Linked Order Line', domain="[('order_id', '=', order_id)]", ondelete='cascade', copy=False)
     option_line_ids = fields.One2many('sale.order.line', 'linked_line_id', string='Options Linked')
 
     def get_sale_order_line_multiline_description_sale(self, product):
