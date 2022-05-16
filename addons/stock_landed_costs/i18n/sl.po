@@ -11,6 +11,7 @@
 # Boris Kodelja <boris@hbs.si>, 2021
 # Grega Vavtar <grega@hbs.si>, 2021
 # Tadej Lupšina <tadej@hbs.si>, 2021
+# Nejc G <nejc@luxim.si>, 2021
 # Jasmina Macur <jasmina@hbs.si>, 2021
 # 
 msgid ""
@@ -48,6 +49,9 @@ msgid ""
 "A consumable product is a product for which stock is not managed.\n"
 "A service is a non-material product you provide."
 msgstr ""
+"Izdelek, ki ga je mogoče shraniti, je izdelek, pri katerem upravljate z zalogami. Namestiti je treba aplikacijo Inventory.\n"
+"Potrošni izdelek je izdelek, pri katerem se zaloge ne upravljajo.\n"
+"Storitev je nematerialni izdelek, ki ga ponujate."
 
 #. module: stock_landed_costs
 #: model:ir.model.fields,field_description:stock_landed_costs.field_stock_landed_cost_lines__account_id
@@ -241,7 +245,7 @@ msgstr "Privzet dnevnik"
 #: model:ir.model.fields,field_description:stock_landed_costs.field_product_product__split_method_landed_cost
 #: model:ir.model.fields,field_description:stock_landed_costs.field_product_template__split_method_landed_cost
 msgid "Default Split Method"
-msgstr ""
+msgstr "Privzeta metoda razdelitve"
 
 #. module: stock_landed_costs
 #: model:ir.model.fields,help:stock_landed_costs.field_product_product__split_method_landed_cost
@@ -774,8 +778,7 @@ msgstr "Masa"
 #, python-format
 msgid ""
 "You cannot apply landed costs on the chosen %s(s). Landed costs can only be "
-"applied for products with automated inventory valuation and FIFO or average "
-"costing method."
+"applied for products with FIFO or average costing method."
 msgstr ""
 
 #. module: stock_landed_costs
