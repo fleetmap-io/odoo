@@ -15,9 +15,9 @@
                     <div name="grant_consuption_average">
                         <field name="grant_consuption_average" class="oe_inline"/> l /100km
                     </div>
-                    <group  string="Consumption History">
+                    <group  string="Histórico de consumos">
                         <field name="consumption_average_history_ids"  nolabel="1">
-                            <tree string="Consumption Average History" editable="False">
+                            <tree string="Média de consumo" editable="False">
                                <field name="great_average"/>
                                <field name="vehicle_id" invisible="1"/>
                                <field name="consumption_average_id" invisible="1"/>     
@@ -60,7 +60,7 @@
                     <group>
                         <label for="odometer"/>
                         <div>
-                            <field name="odometer" class="oe_inline" string="New Odometer Reading"/>Kilometer
+                            <field name="odometer" class="oe_inline" string="Nova leitura"/>Kilometer
                         </div>
                         <label for="previous_odometer"/>
                         <div>
@@ -94,28 +94,28 @@
             <field name="name">bi.form.fuel.tank</field>
             <field name="model">fuel.tank</field>
             <field name="arch" type="xml">
-                <form string="Fual Tank">
+                <form string="Tanque">
                     <sheet>
                         <group>
-                            <group string="Tank Details">
+                            <group string="Detalhes do tanque">
                                 <field name="name"/>
                                 <field name="location"/>
                                 <field name="last_clean_date"/>
                             </group>
 
-                            <group string="Fuel Details">
+                            <group string="Combustível">
                                 <field name="capacity"/>
                                 <label for="liters" />
                                 <div name="liters">
                                     <field name="liters" class="oe_inline" /> Litres
                                 </div>
                                 <field name="average_price"/>
-                                <button type="action" name="%(action_add_liters)d" string="Add Fuel" class="btn btn-primary"/>
+                                <button type="action" name="%(action_add_liters)d" string="Adicionar abastecimento" class="btn btn-primary"/>
                             </group>
                         </group>
                         
                         <group >
-                            <group string="Last Filling Details">
+                            <group string="Último abastecimento">
                                 <field name="last_filling_date"/>
                                 <field name="last_filling_amount"/>
                                 <label for="last_filling_price_liter"/>
@@ -123,17 +123,17 @@
                                     <field name="last_filling_price_liter" /> Per Liter
                                 </div>
                             </group>
-                            <group string="Consumption Details">
+                            <group string="Consumo">
                                 <field name="percentage_fuel"/>
                                 <field name="last_fuel_adding_date"/>
                             </group>
                         </group>
 
                         <notebook>
-                            <page string="Fuel Filling History">
+                            <page string="Histórico de abastecimentos">
                                 <group>
                                     <field name="fule_filling_history_ids" nolabel="1">
-                                        <tree string="Fuel Filling History">
+                                        <tree string="Histórico de abastecimentos">
                                            <field name="filling_date"/>
                                            <field name="price_per_liter"/>
                                            <field name="fuel_filling_id" invisible="1"/>
@@ -152,7 +152,7 @@
             <field name="name">fuel.tank.config.tree</field>
             <field name="model">fuel.tank</field>
             <field name="arch" type="xml">
-                <tree string="Fuel Tank" >
+                <tree string="Tanque" >
                     <field name="name"/>
                     <field name="location"/>
                     <field name="capacity"/>

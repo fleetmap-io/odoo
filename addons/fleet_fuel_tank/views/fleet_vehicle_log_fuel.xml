@@ -4,7 +4,7 @@
         <field name="name">fleet.vehicle.cost.tree</field>
         <field name="model">fleet.vehicle.cost</field>
         <field name="arch" type="xml">
-            <tree string="Vehicle Costs">
+            <tree string="Custos">
                 <field name="currency_id" invisible="1"/>
                 <field name="vehicle_id"/>
                 <field name="description"/>
@@ -58,7 +58,7 @@
         <field name="name">fleet.vehicle.cost.graph</field>
         <field name="model">fleet.vehicle.cost</field>
         <field name="arch" type="xml">
-            <graph string="Vehicles costs">
+            <graph string="Custos">
                 <field name="vehicle_id"/>
                 <field name="date" interval="year"/>
                 <field name="amount" type="measure"/>
@@ -70,7 +70,7 @@
         <field name="name">fleet.vehicle.cost.pivot</field>
         <field name="model">fleet.vehicle.cost</field>
         <field name="arch" type="xml">
-            <pivot string="Vehicles costs" >
+            <pivot string="Custos" >
                 <field name="vehicle_id" type="row"/>
                 <field name="cost_type" type="col"/>
                 <field name="amount" type="measure"/>
@@ -82,7 +82,7 @@
         <field name="name">fleet.vehicle.cost.graph</field>
         <field name="model">fleet.vehicle.cost</field>
         <field name="arch" type="xml">
-            <graph string="Vehicles costs">
+            <graph string="Custos">
                 <field name="parent_id" type="row"/>
                 <field name="cost_type" type="col"/>
                 <field name="amount" type="measure"/>
@@ -94,7 +94,7 @@
         <field name="name">fleet.vehicle.cost.search</field>
         <field name="model">fleet.vehicle.cost</field>
         <field name="arch" type="xml">
-            <search string="Vehicles costs" >
+            <search string="Custos" >
                 <field name="vehicle_id" />
                 <field name="cost_subtype_id"/>
                 <field name="date"/>
@@ -117,7 +117,7 @@
         <field name="name">fleet.vehicle.cost.form</field>
         <field name="model">fleet.vehicle.cost</field>
         <field name="arch" type="xml">
-            <form string="Vehicle costs">
+            <form string="Custos">
                 <sheet>
                     <field name="currency_id" invisible="1"/>
                     <group col="2" string="Cost Details">
@@ -171,27 +171,27 @@
         <field name="name">fleet.vehicle.log.fuel.form</field>
         <field name="model">fleet.vehicle.log.fuel</field>
         <field name="arch" type="xml">
-            <form string="Fuel Logs">
+            <form string="Abastecimentos">
                 <sheet>
                     <group>
                         <group string="Veículo">
                             <field name="vehicle_id"/>
                         </group>
-                        <group string="Refueling Details">
+                        <group string="Abastecimento">
                             <field name="liter"/>
                             <field name="price_per_liter"/>
                             <field name="amount"/>
                         </group>
                     </group>
                     <group>
-                        <group string="Odometer Details">
+                        <group string="Odómetro">
                             <label for="odometer"/>
                             <div class="o_row">
                                 <field name="odometer"/>
                                 <field name="odometer_unit"/>
                             </div>
                         </group>
-                        <group string="Additional Details">
+                        <group string="Notas">
                             <field name="date" />
                             <field name="purchaser_id" />
                             <field name="inv_ref" />
@@ -208,7 +208,7 @@
         <field name="name">fleet.vehicle.log.fuel.tree</field>
         <field name="model">fleet.vehicle.log.fuel</field>
         <field name="arch" type="xml">
-            <tree string="Fuel Logs">
+            <tree string="Abastecimentos">
                 <field name="date" />
                 <field name="vehicle_id" />
                 <field name="purchaser_id" />

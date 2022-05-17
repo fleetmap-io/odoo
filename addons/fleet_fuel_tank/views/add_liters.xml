@@ -18,9 +18,9 @@
 						</group>
 					</group>	
 					<footer>
-				    	<button  string="Save" type="object" name="add_liters" class="btn btn-primary"/>
+				    	<button  string="Gravar" type="object" name="add_liters" class="btn btn-primary"/>
 				    	or
-				        <button string="Cancel" class="oe_link" special="cancel" />
+				        <button string="Cancelar" class="oe_link" special="cancel" />
 				    </footer>				
 		        </form>
            </field>
