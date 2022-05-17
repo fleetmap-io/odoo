@@ -174,7 +174,7 @@
             <form string="Fuel Logs">
                 <sheet>
                     <group>
-                        <group string="Vehicle Details">
+                        <group string="Veículo">
                             <field name="vehicle_id"/>
                         </group>
                         <group string="Refueling Details">
@@ -255,7 +255,7 @@
         <field name="name">fleet.vehicle.log.fuel.search</field>
         <field name="model">fleet.vehicle.log.fuel</field>
         <field name="arch" type="xml">
-            <search string="Vehicles Fuel Logs" >
+            <search string="Abastecimentos" >
                 <field name="vehicle_id" />
                 <field name="date"/>
                 <field name="purchaser_id" />

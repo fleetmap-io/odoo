@@ -5,7 +5,7 @@
             <field name="name">add.liters.view.form.bi.form</field>
             <field name="model">liters.liters</field>
             <field name="arch" type="xml">
-		        <form string="Add Liters">
+		        <form string="Adicionar litros">
 					<group>
 						<group>
 							<label for="liters"/>
