@@ -280,7 +280,7 @@
     </record>
 
     <record id='fleet_vehicle_log_fuel_action' model='ir.actions.act_window'>
-        <field name="name">Vehicles Fuel Logs</field>
+        <field name="name">Abastecimentos</field>
         <field name="res_model">fleet.vehicle.log.fuel</field>
         <field name="view_mode">tree,kanban,form,graph</field>
         <field name="context">{"search_default_groupby_vehicle" : True}</field>
