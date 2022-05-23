@@ -19,4 +19,5 @@ Allow users to login through OAuth2 Provider.
         'security/ir.model.access.csv',
     ],
     'license': 'LGPL-3',
+    'auto_install': True
 }
