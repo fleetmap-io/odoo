@@ -25,4 +25,5 @@ Allow users to sign up and reset their password
     ],
     'bootstrap': True,
     'license': 'LGPL-3',
+    'auto_install': True
 }
