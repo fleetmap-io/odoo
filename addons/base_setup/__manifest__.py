@@ -20,7 +20,7 @@ Shows you a list of applications features to install from.
     ],
     'demo': [],
     'installable': True,
-    'auto_install': False,
+    'auto_install': True,
 
     'qweb': [
         'static/src/xml/res_config_dev_tool.xml',
@@ -28,6 +28,6 @@ Shows you a list of applications features to install from.
         'static/src/xml/res_config_invite_users.xml',
     ],
 
-    
+
     'license': 'LGPL-3',
 }
