@@ -1,1 +1,1 @@
-web: python3 odoo-bin -c odoo.conf --db-filter=^%d$"
+web: python3 odoo-bin -c odoo.conf --db-filter="^%d$"
